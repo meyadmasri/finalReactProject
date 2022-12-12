@@ -1,0 +1,23 @@
+.menu-all {
+  max-width: 300px;
+  height: 100vh;
+  border-right: 1px rgb(243, 244, 245) solid;
+}
+
+.logo-img > img {
+  max-width: 80px;
+  max-height: 80px;
+}
+.menu-item {
+  text-decoration: none;
+  text-transform: capitalize;
+  color: black;
+  font-size: medium;
+  font-weight: 400;
+  border-radius: 50px;
+}
+.menu-item:hover {
+  background-color: #f0f0f0;
+  color: rgb(29, 161, 242);
+  width: fit-content;
+}

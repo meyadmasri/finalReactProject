@@ -1,0 +1,71 @@
+import "../../assets/nav-side.css";
+import { NavLink } from "react-router-dom";
+import {
+  Home,
+  Mail,
+  Person,
+  Explore,
+  Bookmarks,
+  ViewList,
+  Lock,
+} from "@mui/icons-material";
+const NavSide = () => {
+  const menu = [
+    {
+      target: "#",
+      text: "home",
+      icon: <Home fontSize="medium" />,
+    },
+    {
+      target: "#",
+      text: "messages",
+      icon: <Mail fontSize="medium" />,
+    },
+    {
+      target: "#",
+      text: "bookmarks",
+      icon: <Bookmarks fontSize="medium" />,
+    },
+    {
+      target: "#",
+      text: "explore",
+      icon: <Explore fontSize="medium" />,
+    },
+    {
+      target: "#",
+      text: "lists",
+      icon: <ViewList fontSize="medium" />,
+    },
+    {
+      target: "#",
+      text: "profile",
+      icon: <Person fontSize="medium" />,
+    },
+    {
+      target: "/signout",
+      text: "sign out",
+      icon: <Lock fontSize="medium" />,
+    },
+  ];
+
+  return (
+    <div className="menu-all col-12 d-flex flex-column gap-3 p-3 m-0">
+      <img
+        className="px-3 mx-3 mt-0"
+        alt="logo"
+        src="https://ferasjobeir.com/frontend-app/static/media/logo.1bb8db420e540d66b7c4a6a8350ca833.svg"
+      />
+      {menu.map((item, i) => {
+        return (
+          <div className=" mx-4 p-3" key={i}>
+            <NavLink className="menu-item p-3" to={item.target}>
+              
+              {item.icon} &nbsp;&nbsp; {item.text}
+            </NavLink>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+export default NavSide;
