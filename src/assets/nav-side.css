@@ -4,9 +4,9 @@
   border-right: 1px rgb(243, 244, 245) solid;
 }
 
-.logo-img > img {
-  max-width: 80px;
-  max-height: 80px;
+.nav-logo {
+  max-width: 90px;
+  max-height: 90px;
 }
 .menu-item {
   text-decoration: none;

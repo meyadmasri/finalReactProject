@@ -17,6 +17,7 @@ const SignIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await postAccount(userData);
+    
   };
 
   const postAccount = async (data) => {
@@ -28,7 +29,7 @@ const SignIn = () => {
       .then((res) => {
         console.log(res);
         logIn(res.data.data, res.data.token);
-        switcher('/nav')
+        switcher('/')
       })
       .catch((error) => {
         console.log(error);
@@ -38,7 +39,7 @@ const SignIn = () => {
   return (
     <div className="all">
       <div className="form-cart col-12">
-        <img
+        <img className="logo"
           alt="logo"
           src="https://ferasjobeir.com/frontend-app/static/media/logo.1bb8db420e540d66b7c4a6a8350ca833.svg"
         />

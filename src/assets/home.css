@@ -1,0 +1,21 @@
+.header-page {
+  border-bottom: 1px solid #f3f4f5;
+}
+.create-post {
+  border-bottom: 6px solid #f3f4f5;
+}
+.avatar {
+  border-radius: 20px;
+  height: 40px;
+  width: 40px;
+}
+.textarea {
+  width: 100%;
+}
+.textarea > textarea {
+  border: 0;
+  height: 120px;
+  outline: none;
+  resize: none;
+  width: 100%;
+}

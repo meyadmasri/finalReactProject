@@ -12,7 +12,7 @@ import {
 const NavSide = () => {
   const menu = [
     {
-      target: "#",
+      target: "/",
       text: "home",
       icon: <Home fontSize="medium" />,
     },
@@ -37,7 +37,7 @@ const NavSide = () => {
       icon: <ViewList fontSize="medium" />,
     },
     {
-      target: "#",
+      target: "/profile",
       text: "profile",
       icon: <Person fontSize="medium" />,
     },
@@ -51,7 +51,7 @@ const NavSide = () => {
   return (
     <div className="menu-all col-12 d-flex flex-column gap-3 p-3 m-0">
       <img
-        className="px-3 mx-3 mt-0"
+        className="px-3 mx-4 mt-0 nav-logo"
         alt="logo"
         src="https://ferasjobeir.com/frontend-app/static/media/logo.1bb8db420e540d66b7c4a6a8350ca833.svg"
       />

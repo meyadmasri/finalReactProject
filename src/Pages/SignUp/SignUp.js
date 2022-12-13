@@ -17,12 +17,13 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await postAccount(userData);
+     switcher("/signin")
   };
 
   const postAccount = async (data) => {
     axios({
       method: "post",
-      url: "https://ferasjobeir.com/api/users/register",
+      url: "http://www.ferasjobeir.com/api/users/register",
       data: data,
     })
       .then( (res)=> {
@@ -35,7 +36,7 @@ const SignUp = () => {
 
   return (
     <div className="form-cart col-12 ">
-      <img
+      <img className="logo"
         alt="logo"
         src="https://ferasjobeir.com/frontend-app/static/media/logo.1bb8db420e540d66b7c4a6a8350ca833.svg"
       />
