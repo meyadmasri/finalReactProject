@@ -9,33 +9,10 @@ import {
   Favorite,
 } from "@mui/icons-material";
 
-export const Posts = () => {
+export const Posts = ({posts: allPosts}) => {
+  const {token, user} =useContext(AuthContext)
   let relativeTime = require('dayjs/plugin/relativeTime')
   dayjs.extend(relativeTime)
-  const { token } = useContext(AuthContext);
-  useEffect(() => {
-    getPosts();
-  }, []);
-  const [allPosts, setAllPosts] = useState([]);
-
-  const getPosts = async (data) => {
-    axios({
-      method: "get",
-      url: "https://ferasjobeir.com/api/posts?page=1",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        console.log(res);
-        setAllPosts(res.data.data.data);
-        console.log(allPosts);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   const [postsDetails, setPostsDetalis] = useState([]);
   const getPostsDetails = async (i) => {
     axios({
@@ -54,7 +31,6 @@ export const Posts = () => {
         console.log(error);
       });
   };
-
   return (
     <div>
       {allPosts.map((post) => {
