@@ -29,3 +29,12 @@
     max-width: 100%;
     overflow: hidden;
 }
+.comment {
+    display: flex;
+    margin-bottom: 8px;
+}
+.addcomment {
+    border-top: 1px solid #e5e6e7;
+    margin-top: 15px;
+    padding-top: 15px;
+}

@@ -10,9 +10,7 @@ function HomePage() {
     getPosts();
   }, []);
   const [allPosts, setAllPosts] = useState([]);
-  const [newPost, setNewPost] = useState({
-    content: "",
-  });
+  const [newPost, setNewPost] = useState("");
 
   const getPosts = async (data) => {
     axios({
@@ -34,7 +32,7 @@ function HomePage() {
     axios({
       method: "post",
       url: "https://ferasjobeir.com/api/posts",
-      data,
+      data :{content: newPost},
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -42,9 +40,7 @@ function HomePage() {
       .then((res) => {
         alert(res.data.messages);
         setAllPosts([res.data.data, ...allPosts]);
-        setNewPost({
-          content: "",
-        });
+        setNewPost("");
       })
       .catch((error) => {
         console.log(error);
@@ -63,10 +59,11 @@ function HomePage() {
           <textarea
             placeholder="What is happening?"
             onChange={(e) =>
-              setNewPost({
-                content: e.target.value,
-              })
+              setNewPost(
+                e.target.value,
+              )
             }
+            value={newPost}
           ></textarea>
           <button
             class="btn btn-primary"
@@ -78,7 +75,7 @@ function HomePage() {
       </div>
 
       <div>
-        <Posts posts={allPosts} />
+        <Posts posts={allPosts} setPosts={setAllPosts} />
       </div>
     </div>
   );

@@ -17,22 +17,22 @@ const NavSide = () => {
       icon: <Home fontSize="medium" />,
     },
     {
-      target: "#",
+      target: "/messages",
       text: "messages",
       icon: <Mail fontSize="medium" />,
     },
     {
-      target: "#",
+      target: "/bookmarks",
       text: "bookmarks",
       icon: <Bookmarks fontSize="medium" />,
     },
     {
-      target: "#",
+      target: "/explore",
       text: "explore",
       icon: <Explore fontSize="medium" />,
     },
     {
-      target: "#",
+      target: "/lists",
       text: "lists",
       icon: <ViewList fontSize="medium" />,
     },
@@ -58,9 +58,9 @@ const NavSide = () => {
       {menu.map((item, i) => {
         return (
           <div className=" mx-4 p-3" key={i}>
-            <NavLink className="menu-item p-3" to={item.target}>
+            <NavLink className={({isActive})=>(isActive)? "active-link p-3" : "menu-item p-3"} to={item.target}>
               
-              {item.icon} &nbsp;&nbsp; {item.text}
+              {item.icon} &nbsp; {item.text}
             </NavLink>
           </div>
         );
