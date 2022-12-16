@@ -7,6 +7,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 const Profile = () => {
   const { token } = useContext(AuthContext);
   const [myProfile, setMyProfile] = useState({});
+  const [myProfilePost, setMyProfilePost] = useState([]);
   useEffect(() => {
     getUserData();
   }, []);
@@ -21,15 +22,14 @@ const Profile = () => {
     })
       .then((res) => {
         setMyProfile(res.data.data);
-        
+        setMyProfilePost(res.data.data.posts)        
       })
       .catch((error) => {
         console.log(error);
       });
   };
- 
+
   const deletePost = async (deleteItem) => {
-  
     axios({
       method: "delete",
       url: `https://ferasjobeir.com/api/posts/${deleteItem}`,
@@ -38,15 +38,15 @@ const Profile = () => {
       },
     })
       .then((res) => {
-       console.log(res.messages)
-       
+          const newMyPosts = [...myProfilePost]
+          const index = newMyPosts.findIndex(item => item.id == deleteItem)
+          newMyPosts.splice(index, 1)
+          setMyProfilePost(newMyPosts)
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
-
   return (
     <div>
       <div className="header-page d-flex py-2 px-3 justify-content-between align-items-center">
@@ -157,8 +157,8 @@ const Profile = () => {
           <AllInbox fontSize="large" /> My Posts
         </div>
         <ul className="list-group">
-          {myProfile?.posts?.map((item, i) => (
-            <li className="list-group-item d-flex  align-items-center justify-content-between">
+          {myProfilePost?.map((item) => (
+            <li id ={item.id} className="list-group-item d-flex  align-items-center justify-content-between">
               <span>{item.content}</span>
               <span>
                 <button class="btn btn-danger btn-sm" onClick={()=> {
