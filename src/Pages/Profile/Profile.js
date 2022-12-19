@@ -74,18 +74,7 @@ const Profile = () => {
         console.log(error);
       });
 
-    
-   /*  if (res.data.success) {
-      getUserData();
-      alert(res.data.messages);
-    } else if (
-      (error) => {
-        console.log(error);
-      }
-    ) {
-      
-      console.log(res.data.success);
-    } */
+
   };
 
   return (
