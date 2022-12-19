@@ -1,8 +1,20 @@
-.menu-all {
-  max-width: 300px;
+.navh {
+  width: 300px;
   height: 100vh;
   border-right: 1px rgb(243, 244, 245) solid;
+  
+
 }
+@media screen and (max-width: 992px){
+  .navh{
+      width: 290px;
+  }
+  }
+  @media screen and (max-width: 768px){
+    .navh {
+      display: none;
+  }
+  }
 .nav-logo {
   max-width: 90px;
   max-height: 90px;

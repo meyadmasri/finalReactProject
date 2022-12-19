@@ -49,7 +49,9 @@ const NavSide = () => {
   ];
 
   return (
+    <div className="navh">
     <div className="menu-all col-12 d-flex flex-column gap-3 p-3 m-0">
+      
       <img
         className="px-3 mx-4 mt-0 nav-logo"
         alt="logo"
@@ -65,6 +67,8 @@ const NavSide = () => {
           </div>
         );
       })}
+      
+    </div>
     </div>
   );
 };

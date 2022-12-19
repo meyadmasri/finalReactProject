@@ -1,0 +1,18 @@
+.head, .headIcon {
+    align-items: center;
+    display: flex;
+  }
+  .head {
+    border-bottom: 1px solid #f3f4f5;
+    justify-content: space-between;
+    padding: 10px 15px;
+  }
+  .headIcon {
+    background-color: #f3f4f5;
+    border-radius: 35px;
+    font-size: small;
+    height: 35px;
+    justify-content: center;
+    margin-left: 5px;
+    width: 35px;
+  }

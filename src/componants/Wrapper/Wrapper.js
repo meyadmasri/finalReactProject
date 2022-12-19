@@ -5,10 +5,10 @@ const Wrapper = ({ children }) => {
     <div className="d-flex">
       <div
         style={{
-          width: 300,
+          maxWidth: 300,
         }}
       >
-        <NavSide />
+        <NavSide  />
       </div>
       <div
         style={{

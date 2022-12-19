@@ -6,6 +6,7 @@ import SignIn from "../SignIn/SignIn";
 const SignOut = () => {
   const switcher = useNavigate();
   const { logOut } = useContext(AuthContext);
+  
   useEffect(() => {
     logOut();
     switcher('/signin')

@@ -3,16 +3,18 @@ import { AccountCircle, AllInbox } from "@mui/icons-material";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import Head from "../../componants/Head/Head";
 
 const Profile = () => {
-  const { token } = useContext(AuthContext);
+  const { token,setUser } = useContext(AuthContext);
   const [myProfile, setMyProfile] = useState({});
   const [myProfilePost, setMyProfilePost] = useState([]);
   useEffect(() => {
     getUserData();
   }, []);
 
-  const getUserData = async (data) => {
+  const getUserData = async () => {
+    console.log(myProfile);
     axios({
       method: "get",
       url: "https://ferasjobeir.com/api/users/me",
@@ -22,7 +24,8 @@ const Profile = () => {
     })
       .then((res) => {
         setMyProfile(res.data.data);
-        setMyProfilePost(res.data.data.posts)        
+        setMyProfilePost(res.data.data.posts);
+        
       })
       .catch((error) => {
         console.log(error);
@@ -30,29 +33,67 @@ const Profile = () => {
   };
 
   const deletePost = async (deleteItem) => {
-    axios({
-      method: "delete",
-      url: `https://ferasjobeir.com/api/posts/${deleteItem}`,
+    var answer = window.confirm("delete Post?");
+    if (answer) {
+      axios({
+        method: "delete",
+        url: `https://ferasjobeir.com/api/posts/${deleteItem}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          const newMyPosts = [...myProfilePost];
+          const index = newMyPosts.findIndex((item) => item.id == deleteItem);
+          newMyPosts.splice(index, 1);
+          setMyProfilePost(newMyPosts);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  const updateUserProfile = async (e) => {
+    e.preventDefault();
+    const newData = new FormData(e.target);
+    await axios(`https://ferasjobeir.com/api/users/me`, {
+      method: "post",
+      data: newData,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {
-          const newMyPosts = [...myProfilePost]
-          const index = newMyPosts.findIndex(item => item.id == deleteItem)
-          newMyPosts.splice(index, 1)
-          setMyProfilePost(newMyPosts)
+        getUserData();
+        alert(res.data.messages);
+        setUser(res.data.data)
       })
       .catch((error) => {
+        alert("error");
         console.log(error);
       });
+
+    
+   /*  if (res.data.success) {
+      getUserData();
+      alert(res.data.messages);
+    } else if (
+      (error) => {
+        console.log(error);
+      }
+    ) {
+      
+      console.log(res.data.success);
+    } */
   };
+
   return (
     <div>
-      <div className="header-page d-flex py-2 px-3 justify-content-between align-items-center">
-        <h4>Profile</h4>
-      </div>
-      <form>
+       <Head
+      page_name ="Profile"
+      />
+      <form onSubmit={updateUserProfile} method="put">
         <div className="p-3 mb-4 bottom-border ">
           <div className="alert alert-dark ">
             <AccountCircle fontSize="large" /> My Information
@@ -96,6 +137,12 @@ const Profile = () => {
               id="name"
               className="form-control"
               value={myProfile.name}
+              onChange={(e) => {
+                setMyProfile({
+                  ...myProfile,
+                  name: e.target.value,
+                });
+              }}
             />
           </div>
           <div class="form-field mb-3">
@@ -110,6 +157,12 @@ const Profile = () => {
               id="email"
               class="form-control"
               value={myProfile.email}
+              onChange={(e) => {
+                setMyProfile({
+                  ...myProfile,
+                  email: e.target.value,
+                });
+              }}
             />
           </div>
           <div class="form-field mb-3">
@@ -145,6 +198,7 @@ const Profile = () => {
               className="form-control"
             />
           </div>
+          <input type="hidden" name="_method" value="put" />
           <div className="form-field mb-3">
             <button type="submit" class="btn btn-primary">
               Update Profile
@@ -158,12 +212,20 @@ const Profile = () => {
         </div>
         <ul className="list-group">
           {myProfilePost?.map((item) => (
-            <li id ={item.id} className="list-group-item d-flex  align-items-center justify-content-between">
+            <li
+              id={item.id}
+              className="list-group-item d-flex  align-items-center justify-content-between"
+            >
               <span>{item.content}</span>
               <span>
-                <button class="btn btn-danger btn-sm" onClick={()=> {
-                  deletePost(item.id)
-                }}>Delete</button>
+                <button
+                  class="btn btn-danger btn-sm"
+                  onClick={() => {
+                    deletePost(item.id);
+                  }}
+                >
+                  Delete
+                </button>
               </span>
             </li>
           ))}

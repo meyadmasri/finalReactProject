@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import "../../assets/home.css";
+import Head from "../../componants/Head/Head";
 import Posts from "../../componants/Posts/Posts";
 import { AuthContext } from "../../contexts/AuthContext";
 
@@ -12,10 +13,10 @@ function HomePage() {
   const [allPosts, setAllPosts] = useState([]);
   const [newPost, setNewPost] = useState("");
 
-  const getPosts = async (data) => {
+  const getPosts = async (id) => {
     axios({
       method: "get",
-      url: "https://ferasjobeir.com/api/posts?page=1",
+      url: `https://ferasjobeir.com/api/posts?page=${id}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -38,9 +39,9 @@ function HomePage() {
       },
     })
       .then((res) => {
-        alert(res.data.messages);
         setAllPosts([res.data.data, ...allPosts]);
         setNewPost("");
+        alert(res.data.messages);
       })
       .catch((error) => {
         console.log(error);
@@ -50,9 +51,9 @@ function HomePage() {
 
   return (
     <div>
-      <div className="header-page d-flex py-2 px-3 justify-content-between align-items-center">
-        <h4>Home</h4>
-      </div>
+      <Head
+      page_name ="Home"
+      />
       <div className=" d-flex py-2 px-3 create-post">
         <img className="me-3 avatar" src={user.avatar} alt={user.name} />
         <div class="textarea d-flex flex-column align-items-end">
@@ -75,7 +76,7 @@ function HomePage() {
       </div>
 
       <div>
-        <Posts posts={allPosts} setPosts={setAllPosts} />
+        <Posts posts={allPosts} setPosts={setAllPosts} getpost ={getPosts}/>
       </div>
     </div>
   );
