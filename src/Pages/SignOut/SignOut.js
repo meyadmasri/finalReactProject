@@ -12,6 +12,6 @@ const SignOut = () => {
     switcher('/signin')
   }, []);
 
-  return <SignIn/>
+  return (<></>)
 };
 export default SignOut;

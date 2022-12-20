@@ -73,7 +73,7 @@ function SinglePost({ post, setPosts, posts }) {
         const newPosts = [...posts];
         const i = newPosts.findIndex((item) => item.id == post.id);
         newPosts[i].comments_count = String(
-          parseInt(newPosts[i].comments_count) + 1
+          parseInt(postsDetails.length) + 1
         );
         setPosts(newPosts);
       })

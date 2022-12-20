@@ -2,19 +2,47 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import "../../assets/home.css";
 import Head from "../../componants/Head/Head";
+import Loading from "../../componants/Loading/Loading";
 import Posts from "../../componants/Posts/Posts";
 import { AuthContext } from "../../contexts/AuthContext";
 
 function HomePage() {
   const { token, user } = useContext(AuthContext);
-  useEffect(() => {
-    getPosts();
-  }, []);
+  const [postDe,setPostDe] = useState([])
   const [allPosts, setAllPosts] = useState([]);
   const [newPost, setNewPost] = useState("");
+  const [pageNumber, setPageNumber] = useState(1)
+  const [loading,setLoading] = useState(false)
+  useEffect(() => {
+    getPosts(pageNumber);
+  }, [pageNumber]);
+
+    useEffect(() => { 
+        window.addEventListener("scroll", () => handleOnScroll()) 
+      return () => { 
+        if (typeof window !== 'undefined')
+        window.removeEventListener("scroll", () => handleOnScroll())
+      }
+      
+    },[document.documentElement.clientHeight + document.documentElement.scrollTop])
+    
+    const handleOnScroll = () => {
+        let userScrollH = document.documentElement.clientHeight + document.documentElement.scrollTop  + 1 
+        let windowBottomHeight = document.documentElement.offsetHeight
+        if (userScrollH >= windowBottomHeight) {
+         
+                setPageNumber(pageNumber + 1)
+                if(pageNumber >= postDe.last_page ) {
+                  setLoading(true)
+                }
+               
+            
+      }
+    }
+    console.log(postDe)
 
   const getPosts = async (id) => {
-    axios({
+   if ( !loading ){ axios({
       method: "get",
       url: `https://ferasjobeir.com/api/posts?page=${id}`,
       headers: {
@@ -22,12 +50,14 @@ function HomePage() {
       },
     })
       .then((res) => {
-        setAllPosts(res.data.data.data);
+        setAllPosts([ ...allPosts,...res.data.data.data]);
+        setPostDe(res.data.data)
+        
+
       })
       .catch((error) => {
-        console.log(error);
       });
-  };
+  };}
 
   const CreateNewPost = async (data) => {
     axios({
@@ -77,6 +107,7 @@ function HomePage() {
 
       <div>
         <Posts posts={allPosts} setPosts={setAllPosts} getpost ={getPosts}/>
+        {!loading && <Loading/>}
       </div>
     </div>
   );

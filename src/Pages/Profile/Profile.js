@@ -6,7 +6,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import Head from "../../componants/Head/Head";
 
 const Profile = () => {
-  const { token,setUser } = useContext(AuthContext);
+  const { token, setUser } = useContext(AuthContext);
   const [myProfile, setMyProfile] = useState({});
   const [myProfilePost, setMyProfilePost] = useState([]);
   useEffect(() => {
@@ -25,7 +25,6 @@ const Profile = () => {
       .then((res) => {
         setMyProfile(res.data.data);
         setMyProfilePost(res.data.data.posts);
-        
       })
       .catch((error) => {
         console.log(error);
@@ -56,6 +55,7 @@ const Profile = () => {
 
   const updateUserProfile = async (e) => {
     e.preventDefault();
+    /* console.log(e) */
     const newData = new FormData(e.target);
     await axios(`https://ferasjobeir.com/api/users/me`, {
       method: "post",
@@ -67,22 +67,18 @@ const Profile = () => {
       .then((res) => {
         getUserData();
         alert(res.data.messages);
-        setUser(res.data.data)
+        setUser(res.data.data);
       })
       .catch((error) => {
         alert("error");
         console.log(error);
       });
-
-
   };
 
   return (
     <div>
-       <Head
-      page_name ="Profile"
-      />
-      <form onSubmit={updateUserProfile} method="put">
+      <Head page_name="Profile" />
+      <form onSubmit={(e)=>updateUserProfile(e)} >
         <div className="p-3 mb-4 bottom-border ">
           <div className="alert alert-dark ">
             <AccountCircle fontSize="large" /> My Information
@@ -156,7 +152,9 @@ const Profile = () => {
           </div>
           <div class="form-field mb-3">
             <label for="password" class="mb-2">
-              <small>Password</small>
+              <small>
+                Password <span className="text-danger">*</span>
+              </small>
             </label>
             <input
               name="password"
